@@ -99,6 +99,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             initHamburgerMenu();
             initBackToTop();
+            initHeaderAnimation();
         });
 
         // Función para inicializar el botón volver arriba
@@ -122,6 +123,40 @@
                         behavior: 'smooth'
                     });
                 });
+            }
+        }
+
+        // Función para inicializar la animación del header
+        function initHeaderAnimation() {
+            const header = document.querySelector('.header');
+            let lastScrollY = window.pageYOffset;
+            let ticking = false;
+            
+            if (header) {
+                function updateHeader() {
+                    const currentScrollY = window.pageYOffset;
+                    
+                    // Ocultar header cuando se hace scroll hacia abajo, mostrar cuando se hace scroll hacia arriba
+                    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                        // Scroll hacia abajo y más de 100px
+                        header.classList.add('hidden');
+                    } else {
+                        // Scroll hacia arriba o cerca del top
+                        header.classList.remove('hidden');
+                    }
+                    
+                    lastScrollY = currentScrollY;
+                    ticking = false;
+                }
+                
+                function requestTick() {
+                    if (!ticking) {
+                        requestAnimationFrame(updateHeader);
+                        ticking = true;
+                    }
+                }
+                
+                window.addEventListener('scroll', requestTick);
             }
         }
     </script>
