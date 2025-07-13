@@ -42,7 +42,7 @@ body {
     color: var(--color-black);
     position: relative;
     min-height: 100vh;
-    padding-top: 200px; /* Espacio para compensar el header fijo */
+    padding-top: 160px; /* Espacio para compensar el header fijo */
 }
 
 body::before {
@@ -131,8 +131,24 @@ body::after {
 .header-content {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
     gap: 2rem;
-    padding: 1.5rem 0 1rem 0;
+}
+
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform var(--transition);
+}
+
+.logo-link:hover {
+    transform: scale(1.05);
 }
 
 .logo {
@@ -141,7 +157,7 @@ body::after {
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
     transition: transform var(--transition);
 }
-.logo:hover {
+.logo-link:hover .logo {
     transform: scale(1.07) rotate(-2deg);
 }
 
@@ -164,10 +180,7 @@ body::after {
 }
 
 .navbar {
-    background: var(--color-black);
-    border-radius: 0 0 12px 12px;
-    margin-top: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: transparent;
     position: relative;
 }
 
@@ -211,10 +224,10 @@ body::after {
 .nav-menu {
     list-style: none;
     display: flex;
-    gap: 2.5rem;
-    justify-content: center;
+    gap: 1.5rem;
+    justify-content: flex-end;
     margin: 0;
-    padding: 0.7rem 0;
+    padding: 0;
     transition: var(--transition);
 }
 .navbar a {
@@ -222,16 +235,18 @@ body::after {
     text-decoration: none;
     font-family: 'Agency FB', Arial, sans-serif;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     letter-spacing: 1px;
-    transition: color var(--transition), text-shadow var(--transition), background var(--transition);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all var(--transition);
+    display: inline-block;
 }
 .navbar a:hover {
     color: var(--color-primary);
     background: var(--color-white);
-    padding: 0.2rem 0.8rem;
-    border-radius: 8px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .section {
@@ -515,7 +530,7 @@ h3 {
 }
 
 .carousel-container.charcuteria {
-    max-width: 500px;
+    max-width: 800px;
 }
 
 .carousel-slides {
@@ -527,12 +542,25 @@ h3 {
 
 .carousel-slide {
     display: none;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 1.5rem;
     align-items: start;
     opacity: 0;
     transform: translateX(20px);
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.carousel-container.charcuteria .carousel-slide {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.carousel-container.charcuteria .carousel-item {
+    padding: 1.5rem;
+}
+
+.carousel-container.charcuteria .carousel-item img {
+    height: 120px;
 }
 
 .carousel-slide.active {
@@ -705,7 +733,19 @@ h3 {
     .header-content {
         flex-direction: column;
         gap: 1rem;
-        text-align: center;
+    }
+    
+    .header-left {
+        justify-content: flex-start;
+        text-align: left;
+    }
+    
+    .header-text h1 {
+        font-size: 1.8rem;
+    }
+    
+    .slogan {
+        font-size: 0.9rem;
     }
     .products-list {
         flex-direction: column;
@@ -717,10 +757,14 @@ h3 {
         padding: 1.5rem;
     }
     .carousel-container.charcuteria {
-        max-width: 400px;
+        max-width: 600px;
+    }
+    .carousel-container.charcuteria .carousel-slide {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
     }
     .carousel-slide {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(5, 1fr);
         gap: 1.2rem;
     }
     .carousel-item {
@@ -749,14 +793,19 @@ h3 {
     }
     
     body {
-        padding-top: 180px; /* Reducir el padding-top para móviles */
+        padding-top: 140px; /* Reducir el padding-top para móviles */
     }
     
     .header-content {
         flex-direction: column;
         gap: 0.8rem;
-        text-align: center;
         padding: 1rem 0;
+    }
+    
+    .header-left {
+        gap: 0.8rem;
+        justify-content: flex-start;
+        text-align: left;
     }
     
     .logo {
@@ -764,12 +813,12 @@ h3 {
     }
     
     h1 {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
         margin: 0 0 0.2rem 0;
     }
     
     .slogan {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
     }
     
     h2, .section-title {
@@ -842,7 +891,7 @@ h3 {
     }
     
     .carousel-container.charcuteria {
-        max-width: 320px;
+        max-width: 100%;
     }
     
     .carousel-title {
@@ -852,8 +901,8 @@ h3 {
     }
     
     .carousel-slide {
-        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-        gap: 1.2rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
         padding: 0 5px;
     }
     
@@ -863,12 +912,12 @@ h3 {
     }
     
     .carousel-item img {
-        height: 85px;
+        height: 80px;
         margin-bottom: 0.5rem;
     }
     
     .carousel-item p {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         margin: 0.3rem 0 0 0;
     }
     
@@ -1016,12 +1065,19 @@ h3 {
     }
     
     body {
-        padding-top: 160px;
+        padding-top: 130px;
     }
     
     .header-content {
         padding: 0.8rem 0;
         gap: 0.6rem;
+        flex-direction: column;
+    }
+    
+    .header-left {
+        gap: 0.6rem;
+        justify-content: flex-start;
+        text-align: left;
     }
     
     .logo {
@@ -1029,11 +1085,11 @@ h3 {
     }
     
     h1 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     
     .slogan {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .nav-menu {
@@ -1066,7 +1122,7 @@ h3 {
     }
     
     .carousel-container.charcuteria {
-        max-width: 280px;
+        max-width: 100%;
     }
     
     .carousel-title {
@@ -1075,8 +1131,8 @@ h3 {
     }
     
     .carousel-slide {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
     }
     
     .carousel-item {
@@ -1084,11 +1140,11 @@ h3 {
     }
     
     .carousel-item img {
-        height: 75px;
+        height: 70px;
     }
     
     .carousel-item p {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
     
     .carousel-arrow {
@@ -1149,12 +1205,19 @@ h3 {
     }
     
     body {
-        padding-top: 150px;
+        padding-top: 120px;
     }
     
     .header-content {
         padding: 0.6rem 0;
         gap: 0.5rem;
+        flex-direction: column;
+    }
+    
+    .header-left {
+        gap: 0.5rem;
+        justify-content: flex-start;
+        text-align: left;
     }
     
     .logo {
@@ -1162,11 +1225,11 @@ h3 {
     }
     
     h1 {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
     
     .slogan {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
     
     .nav-menu {
@@ -1193,24 +1256,24 @@ h3 {
     }
     
     .carousel-container.charcuteria {
-        max-width: 260px;
+        max-width: 100%;
     }
     
     .carousel-slide {
-        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-        gap: 0.8rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.6rem;
     }
     
     .carousel-item {
-        padding: 0.6rem 0.5rem;
+        padding: 0.7rem 0.5rem;
     }
     
     .carousel-item img {
-        height: 70px;
+        height: 60px;
     }
     
     .carousel-item p {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
     
     .carousel-arrow {
